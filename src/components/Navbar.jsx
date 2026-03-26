@@ -34,8 +34,12 @@ const Navbar = () => {
         <button onClick={toggleTheme} style={{ background: 'transparent', border: 'none', color: 'inherit', cursor: 'pointer', padding: '0.5rem', display: 'flex' }}>
           {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
         </button>
-        <button className="outline-btn" style={{ padding: '0.5rem 1rem' }}>Log In</button>
-        <button className="glow-btn" style={{ padding: '0.5rem 1rem' }}>Sign Up</button>
+        <Link to="/login">
+          <button className="outline-btn" style={{ padding: '0.5rem 1rem' }}>Log In</button>
+        </Link>
+        <Link to="/register">
+          <button className="glow-btn" style={{ padding: '0.5rem 1rem' }}>Sign Up</button>
+        </Link>
       </div>
     </nav>
   );

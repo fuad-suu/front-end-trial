@@ -69,7 +69,7 @@ const Browse = () => {
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <div style={{
-        maxWidth: '1440px', margin: '0 auto', padding: '2rem',
+        maxWidth: '1800px', margin: '0 auto', padding: '2rem',
         display: 'flex', gap: '2rem', width: '100%', flex: 1,
         alignItems: 'flex-start'
       }}>
