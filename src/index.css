@@ -1,0 +1,128 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  
+  /* Color Palette - Defaulting to Dark Mode */
+  --color-primary: #0d0f10;
+  --color-secondary: #1a1d1f;
+  --color-accent: #3ef7a6;
+  
+  --text-primary: #ffffff;
+  --text-secondary: #9ca3af;
+  
+  --glass-bg: rgba(26, 29, 31, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.08);
+
+  color-scheme: dark;
+}
+
+[data-theme='light'] {
+  --color-primary: #f8fafc;
+  --color-secondary: #ffffff;
+  --color-accent: #10b981;
+  
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(0, 0, 0, 0.1);
+  
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--color-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Glassmorphism Utilities */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.glass:hover {
+  border-color: rgba(62, 247, 166, 0.3);
+  transform: translateY(-2px);
+}
+
+[data-theme='light'] .glass:hover {
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+/* Glow Effects */
+.glow-text {
+  text-shadow: 0 0 10px rgba(62, 247, 166, 0.5);
+}
+
+[data-theme='light'] .glow-text {
+  text-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+}
+
+.glow-btn {
+  background-color: var(--color-accent);
+  color: #000;
+  font-weight: 600;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(62, 247, 166, 0.4);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.glow-btn:hover {
+  box-shadow: 0 0 25px rgba(62, 247, 166, 0.7);
+  transform: scale(1.05);
+}
+
+[data-theme='light'] .glow-btn {
+  color: #fff;
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+}
+
+[data-theme='light'] .glow-btn:hover {
+  box-shadow: 0 0 25px rgba(16, 185, 129, 0.6);
+}
+
+.outline-btn {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--glass-border);
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.outline-btn:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
