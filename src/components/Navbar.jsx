@@ -1,18 +1,8 @@
-import { useState, useEffect } from 'react';
 import { Sun, Moon, Library } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
-const Navbar = () => {
-  const [theme, setTheme] = useState('dark');
+const Navbar = ({ theme, toggleTheme }) => {
   const location = useLocation();
-
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme(theme === 'dark' ? 'light' : 'dark');
-  };
 
   return (
     <nav className="navbar glass" style={{

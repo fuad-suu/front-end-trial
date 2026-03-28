@@ -1,19 +1,14 @@
 import { useState } from 'react';
-import { Mail, Lock, User, UserPlus, ArrowRight, ChevronLeft, BookOpen, GraduationCap } from 'lucide-react';
+import { Mail, Lock, User, UserPlus, ArrowRight, ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Register = () => {
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
-    department: '',
-    year: '',
     password: '',
     confirmPassword: ''
   });
-
-  const departments = ['Electrical', 'Mechanical', 'Electromechanical', 'Civil', 'Environmental', 'Software', 'Architectural', 'Biotech', 'Food Science and Nutrition'];
-  const years = ['1st Year', '2nd Year', '3rd Year', '4th Year', '5th Year'];
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -42,8 +37,8 @@ const Register = () => {
 
       <div className="glass signup-container" style={{ 
         width: '100%', 
-        maxWidth: '1100px', 
-        minHeight: '750px',
+        maxWidth: '1000px', 
+        minHeight: '650px',
         display: 'flex',
         flexDirection: 'row',
         overflow: 'hidden',
@@ -102,15 +97,13 @@ const Register = () => {
 
         {/* Right Side: Form Content */}
         <div style={{
-          flex: 1.4,
+          flex: 1.2,
           padding: '3.5rem 4rem',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
           gap: '2rem',
           background: 'var(--glass-bg)',
-          overflowY: 'auto',
-          maxHeight: '100vh',
           backdropFilter: 'blur(10px)'
         }} className="signup-form-side">
           
@@ -119,7 +112,7 @@ const Register = () => {
           </div>
 
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.25rem' }} className="form-grid">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }} className="form-stack">
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
                 <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)' }}>FULL NAME</label>
                 <div style={{ position: 'relative' }}>
@@ -134,6 +127,7 @@ const Register = () => {
                       borderRadius: '12px', color: 'var(--text-main)', outline: 'none', fontSize: '0.95rem'
                     }}
                     className="login-input"
+                    onChange={(e) => setFormData({...formData, fullName: e.target.value})}
                   />
                 </div>
               </div>
@@ -152,47 +146,8 @@ const Register = () => {
                       borderRadius: '12px', color: 'var(--text-main)', outline: 'none', fontSize: '0.95rem'
                     }}
                     className="login-input"
+                    onChange={(e) => setFormData({...formData, email: e.target.value})}
                   />
-                </div>
-              </div>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-                <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)' }}>DEPARTMENT</label>
-                <div style={{ position: 'relative' }}>
-                  <BookOpen size={18} style={{ position: 'absolute', left: '1.2rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)' }} />
-                  <select 
-                    required
-                    style={{
-                      width: '100%', padding: '0.85rem 1.25rem 0.85rem 3.5rem',
-                      background: 'var(--glass-bg)', border: '1px solid var(--glass-border)',
-                      borderRadius: '12px', color: 'var(--text-main)', outline: 'none', fontSize: '0.95rem',
-                      appearance: 'none', cursor: 'pointer'
-                    }}
-                    className="login-input"
-                  >
-                    <option value="" disabled selected>Select Dept</option>
-                    {departments.map(dept => <option key={dept} value={dept}>{dept}</option>)}
-                  </select>
-                </div>
-              </div>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-                <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)' }}>YEAR OF STUDY</label>
-                <div style={{ position: 'relative' }}>
-                  <GraduationCap size={18} style={{ position: 'absolute', left: '1.2rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)' }} />
-                  <select 
-                    required
-                    style={{
-                      width: '100%', padding: '0.85rem 1.25rem 0.85rem 3.5rem',
-                      background: 'var(--glass-bg)', border: '1px solid var(--glass-border)',
-                      borderRadius: '12px', color: 'var(--text-main)', outline: 'none', fontSize: '0.95rem',
-                      appearance: 'none', cursor: 'pointer'
-                    }}
-                    className="login-input"
-                  >
-                    <option value="" disabled selected>Select Year</option>
-                    {years.map(year => <option key={year} value={year}>{year}</option>)}
-                  </select>
                 </div>
               </div>
 
@@ -210,6 +165,7 @@ const Register = () => {
                       borderRadius: '12px', color: 'var(--text-main)', outline: 'none', fontSize: '0.95rem'
                     }}
                     className="login-input"
+                    onChange={(e) => setFormData({...formData, password: e.target.value})}
                   />
                 </div>
               </div>
@@ -228,6 +184,7 @@ const Register = () => {
                       borderRadius: '12px', color: 'var(--text-main)', outline: 'none', fontSize: '0.95rem'
                     }}
                     className="login-input"
+                    onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
                   />
                 </div>
               </div>
@@ -251,15 +208,10 @@ const Register = () => {
           .signup-container { flex-direction: column; max-width: 500px; height: auto; }
           .signup-branding { border-right: none; border-bottom: 1px solid var(--glass-border); padding: 5rem 2rem; }
           .signup-form-side { padding: 3rem 2rem; }
-          .form-grid { grid-template-columns: 1fr; }
         }
         .login-input:focus {
           border-color: var(--color-accent) !important;
           background: rgba(62, 247, 166, 0.05) !important;
-        }
-        select.login-input option {
-          background-color: var(--color-secondary);
-          color: var(--text-main);
         }
       `}</style>
     </div>

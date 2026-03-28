@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { Mail, Lock, User, ShieldCheck, ArrowRight, ChevronLeft } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Mail, Lock, User, ArrowRight, ChevronLeft } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
 
-const Login = () => {
-  const [role, setRole] = useState('user'); // 'user' or 'admin'
+const Login = ({ onLogin }) => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -11,7 +11,20 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(`Logging in as ${role}:`, formData);
+    
+    // Mock Role Logic based on email
+    let role = 'user';
+    if (formData.email === 'admin@aastu.edu.et') {
+      role = 'admin';
+    } else if (formData.email === 'user@aastu.edu.et') {
+      role = 'user';
+    }
+
+    // Call global login and get redirect path
+    if (onLogin) {
+      const redirectPath = onLogin(role, formData.email);
+      navigate(redirectPath);
+    }
   };
 
   return (
@@ -25,7 +38,7 @@ const Login = () => {
       position: 'relative',
       overflow: 'hidden'
     }}>
-      {/* Dynamic Background Glow representing the role */}
+      {/* Dynamic Background Glow */}
       <div style={{
         position: 'absolute', top: '50%', left: '20%', width: '400px', height: '400px',
         background: 'var(--color-accent)', filter: 'blur(160px)', opacity: 0.1, zIndex: 0,
@@ -44,7 +57,7 @@ const Login = () => {
         zIndex: 1
       }}>
 
-        {/* Left Side: Branding & Role Visual */}
+        {/* Left Side: Branding & Visual */}
         <div style={{
           flex: 1,
           background: 'var(--color-secondary)',
@@ -77,23 +90,19 @@ const Login = () => {
               boxShadow: '0 0 40px rgba(62, 247, 166, 0.1)',
               marginBottom: '1rem'
             }}>
-              {role === 'user' ? (
-                <User size={80} color="var(--color-accent)" className="glow-text" style={{ transition: 'all 0.3s ease' }} />
-              ) : (
-                <ShieldCheck size={80} color="var(--color-accent)" className="glow-text" style={{ transition: 'all 0.3s ease' }} />
-              )}
+              <User size={80} color="var(--color-accent)" className="glow-text" style={{ transition: 'all 0.3s ease' }} />
             </div>
 
             <div>
               <h2 style={{ fontSize: '2.5rem', fontWeight: 800, margin: '0 0 0.5rem 0', letterSpacing: '-1px' }}>WELCOME</h2>
               <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', maxWidth: '280px', lineHeight: 1.5 }}>
-                Log in to your {role} account to access university resources.
+                Log in to access your university resources.
               </p>
             </div>
           </div>
 
           <div style={{ position: 'absolute', bottom: '3rem', color: 'var(--text-primary)', opacity: 0.1, fontSize: '5rem', fontWeight: 900, userSelect: 'none', pointerEvents: 'none' }}>
-            {role.toUpperCase()}
+            LOGIN
           </div>
         </div>
 
@@ -113,40 +122,7 @@ const Login = () => {
             <h1 style={{ fontSize: '2.2rem', fontWeight: 800, marginBottom: '0.75rem' }}>Login</h1>
           </div>
 
-          {/* Role Toggle Tabs */}
-          <div style={{
-            background: 'var(--color-primary)',
-            padding: '5px',
-            borderRadius: '12px',
-            display: 'flex',
-            gap: '5px',
-            border: '1px solid var(--glass-border)'
-          }}>
-            <button
-              onClick={() => setRole('user')}
-              style={{
-                flex: 1, padding: '0.85rem', borderRadius: '8px', border: 'none',
-                background: role === 'user' ? 'rgba(62, 247, 166, 0.15)' : 'transparent',
-                color: role === 'user' ? 'var(--color-accent)' : 'var(--text-secondary)',
-                cursor: 'pointer', fontWeight: 600, transition: 'all 0.3s'
-              }}
-            >
-              User Login
-            </button>
-            <button
-              onClick={() => setRole('admin')}
-              style={{
-                flex: 1, padding: '0.85rem', borderRadius: '8px', border: 'none',
-                background: role === 'admin' ? 'rgba(62, 247, 166, 0.15)' : 'transparent',
-                color: role === 'admin' ? 'var(--color-accent)' : 'var(--text-secondary)',
-                cursor: 'pointer', fontWeight: 600, transition: 'all 0.3s'
-              }}
-            >
-              Admin Login
-            </button>
-          </div>
-
-          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
+          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.75rem', marginTop: '1rem' }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
               <label style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-secondary)' }}>EMAIL</label>
               <div style={{ position: 'relative' }}>
@@ -161,6 +137,8 @@ const Login = () => {
                     borderRadius: '12px', color: 'var(--text-main)', outline: 'none', fontSize: '1rem'
                   }}
                   className="login-input"
+                  value={formData.email}
+                  onChange={(e) => setFormData({...formData, email: e.target.value})}
                 />
               </div>
             </div>
@@ -182,6 +160,8 @@ const Login = () => {
                     borderRadius: '12px', color: 'var(--text-main)', outline: 'none', fontSize: '1rem'
                   }}
                   className="login-input"
+                  value={formData.password}
+                  onChange={(e) => setFormData({...formData, password: e.target.value})}
                 />
               </div>
             </div>
